@@ -58,9 +58,49 @@
             
             <div class="col-9 p-5 bg-light">
                 <ul id="book-wrapper" class="row"></ul>
+                
+                <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group me-2" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-secondary me-2 fw-bold"><</button>
+                        <button type="button" class="btn btn-outline-primary me-2 fw-bold" >1</button>
+                        <button type="button" class="btn btn-outline-secondary me-2 fw-bold">2</button>
+                        <button type="button" class="btn btn-outline-secondary me-2 fw-bold">...</button>
+                        <button type="button" class="btn btn-outline-secondary me-2 fw-bold">9</button>
+                        <button type="button" class="btn btn-outline-secondary me-2 fw-bold">10</button>
+                        <button type="button" class="btn btn-outline-secondary fw-bold">></button>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title modal-name" id="staticBackdropLabel">Python</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="mt-4 mb-4" src="https://picsum.photos/200/300" id="modal-img" alt="book" width="230" height="300">
+
+                    <p class="mb-5 text-secondary" id="modal-summary">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim eaque officiis voluptatem at veniam excepturi aliquid facilis, maxime ipsa cupiditate nobis non? Doloremque, illo. Dolorum quas itaque obcaecati sapiente aperiam rem deleniti dicta suscipit! Facilis, tenetur laboriosam, facere quas quasi placeat, molestiae pariatur quaerat autem officiis explicabo illum dignissimos porro.</p>
+
+                    <div class="modal-wrapper">
+                        <p class="h6 mb-4">Author: <span id="modal-author" class="modal-text bg-light text-primary p-2 ms-3">Lorem, ipsum.</span></p>
+                        <p class="h6 mb-4">Published: <span id="modal-published" class="modal-text bg-light text-primary p-2  ms-3">2019</span></p>
+                        <p class="h6 mb-4">Publishers: <span id="modal-publishers" class="modal-text bg-light text-primary p-2 ms-3">Lorem, ipsum.</span></p>
+                        <p class="h6 mb-4">Categories: <span id="modal-categories" class="modal-text bg-light text-primary p-2 ms-3">Lorem, ipsum.</span></p>
+                        <p class="h6 mb-4">Pages Count: <span id="modal-page" class="modal-text bg-light text-primary p-2 ms-3">364</span></p>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" id="read-btn">read</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <template id="book-template">
         <li class="col-4 mb-3">
@@ -72,9 +112,9 @@
                     <p id="book-year"  class="text-secondary fw-bold"></p>
                 </div>
                 <div class="row justify-content-center gap-1">
-                    <button class="btn btn-warning col-5 fw-bold">Bookmark</button>
-                    <button class="btn btn-light col-5 text-primary fw-bold">More Info</button>
-                    <button class="btn btn-secondary col-10 text-white fw-bold">Read</button>
+                    <button type="button" id="bookmark-btn" class="btn btn-warning col-5 fw-bold">Bookmark</button>
+                    <button type="button" id="modal-info" class="btn btn-light col-5 fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">More Info</button>
+                    <button type="button" id="read-btn" class="btn btn-secondary col-10 text-white fw-bold">Read</button>
                 </div>
             </div>
         </li>

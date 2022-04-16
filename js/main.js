@@ -14,6 +14,11 @@ const elBookmarkWrapper = document.querySelector("#bookmark-wrapper")
 const elSearchResult = document.querySelector("#main-result")
 const elOrderBook = document.querySelector("#main-order")
 
+//html form elements
+const elForm = document.querySelector("#main-form")
+const elInput = document.querySelector("#main-input")
+const elInputValue = elInput.value.trim()
+
 //darkMode added
 elDarkMode.addEventListener("click", function (evt) {
     elBody.classList.toggle("dark-mode")
