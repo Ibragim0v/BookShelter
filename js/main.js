@@ -60,9 +60,9 @@ function renderBooks(array, node) {
         
         bookFragment.appendChild(bookTemplate);
     });
-
+    
     let lengthOfBooks = array.length;
-
+    
     elSearchResult.textContent = lengthOfBooks
     
     node.appendChild(bookFragment);
@@ -71,7 +71,7 @@ function renderBooks(array, node) {
 //add Canvas
 elBookWrapper.addEventListener("click", function (evt) {
     let canvasID = evt.target.dataset.canvasId;
-
+    
     if (canvasID) {
         ;(async function () {
             let responce = await fetch (`https://www.googleapis.com/books/v1/volumes/${canvasID}`);
@@ -102,21 +102,24 @@ elBookWrapper.addEventListener("click", function (evt) {
 async function fetchBookmarks(item) {
     let responce = await fetch(`https://www.googleapis.com/books/v1/volumes/${item}`);
     let date = await responce.json()
-
+    
     return date
 }
 
-let bookmarkedBooks = [];
+let storage = window.localStorage;
 
+let getBookmark = JSON.parse(storage.getItem("bookArray"))
+
+let bookmarkedBooks = getBookmark || []
 
 //bookmark btn working
 elBookWrapper.addEventListener("click", async function (evt) {
     let foundBookId = evt.target.dataset.bookmarkId
-
+    
     
     if (foundBookId) {
         let date = await fetchBookmarks(foundBookId)
-
+        
         let dateArray = []
         dateArray.push(date)
         
@@ -127,6 +130,8 @@ elBookWrapper.addEventListener("click", async function (evt) {
         if (doesInclude === -1) {
             bookmarkedBooks.unshift(foundBook)
             
+            storage.setItem("bookArray", JSON.stringify(bookmarkedBooks))
+            
             renderBookmarks(bookmarkedBooks, elBookmarkWrapper)
         }
     }
@@ -136,31 +141,33 @@ elBookWrapper.addEventListener("click", async function (evt) {
 function renderBookmarks(array, node) {
     node.innerHTML = null
     let bookmarkFragment = document.createDocumentFragment()
-
+    
     array.forEach(item => {
         let bookmarkTemplate = elBookmarkTemplate.cloneNode(true);
-
+        
         bookmarkTemplate.querySelector("#bookmark-name").textContent = item.volumeInfo.title;
         bookmarkTemplate.querySelector("#bookmark-author").textContent = item.volumeInfo.authors;
         bookmarkTemplate.querySelector("#read-btn").href = item.volumeInfo.previewLink;
         bookmarkTemplate.querySelector("#remove-btn").dataset.bookRemoveId = item.id;
-
+        
         bookmarkFragment.appendChild(bookmarkTemplate)
     })
-
+    
     node.appendChild(bookmarkFragment)
 }
 
 //remove bookmark
 elBookmarkWrapper.addEventListener("click", function (evt) {
     let removeID = evt.target.dataset.bookRemoveId
-
+    
     if (removeID) {
         let indexOfBooks = bookmarkedBooks.find(item => item.id == removeID)
-
+        
         bookmarkedBooks.splice(indexOfBooks, 1)
-
+        
+        storage.setItem("bookArray", JSON.stringify(bookmarkedBooks))
+        
         renderBookmarks(bookmarkedBooks, elBookmarkWrapper)
     }
-
+    
 })
