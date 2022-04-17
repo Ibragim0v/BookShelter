@@ -18,8 +18,9 @@
                 </a>
             </div>
             
-            <form action="bookshelter.uz" method="get" class="col-6" id="main-form">
+            <form action="bookshelter.uz" method="get" class="d-flex col-6" id="main-form">
                 <input type="text" placeholder="Search books" class="form-control bg-light" id="main-input" aria-describedby="name">
+                <button class="main-btn btn ms-2 btn-danger">Submit</button>
             </form>
             
             <div class="col-3 text-end">
@@ -32,7 +33,7 @@
     
     <section class="container border-bottom border-2">
         <div class="d-flex align-items-center row pt-2 pb-2">
-            <p class="fw-bold col-4 text-center">Showing <span class="text-danger" id="main-result">0</span> Result(s)</p>
+            <p class="fw-bold col-4 text-center">Result: <span class="text-danger" id="main-result">0</span></p>
             
             <div class="col-6"></div>
             
@@ -74,31 +75,26 @@
         </div>
     </main>
     
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-light">
-                    <h5 class="modal-title modal-name" id="staticBackdropLabel">Python</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img class="mt-4 mb-4" src="https://picsum.photos/200/300" id="modal-img" alt="book" width="230" height="300">
-
-                    <p class="mb-5 text-secondary" id="modal-summary">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim eaque officiis voluptatem at veniam excepturi aliquid facilis, maxime ipsa cupiditate nobis non? Doloremque, illo. Dolorum quas itaque obcaecati sapiente aperiam rem deleniti dicta suscipit! Facilis, tenetur laboriosam, facere quas quasi placeat, molestiae pariatur quaerat autem officiis explicabo illum dignissimos porro.</p>
-
-                    <div class="modal-wrapper">
-                        <p class="h6 mb-4">Author: <span id="modal-author" class="modal-text bg-light text-primary p-2 ms-3">Lorem, ipsum.</span></p>
-                        <p class="h6 mb-4">Published: <span id="modal-published" class="modal-text bg-light text-primary p-2  ms-3">2019</span></p>
-                        <p class="h6 mb-4">Publishers: <span id="modal-publishers" class="modal-text bg-light text-primary p-2 ms-3">Lorem, ipsum.</span></p>
-                        <p class="h6 mb-4">Categories: <span id="modal-categories" class="modal-text bg-light text-primary p-2 ms-3">Lorem, ipsum.</span></p>
-                        <p class="h6 mb-4">Pages Count: <span id="modal-page" class="modal-text bg-light text-primary p-2 ms-3">364</span></p>
-                    </div>
-                </div>
-                <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-secondary" id="read-btn">read</button>
-                </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header bg-light">
+            <h5 class="modal-title modal-name" id="staticBackdropLabel"></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <img class="mb-4 ms-5" src="" id="modal-img" alt="book" width="230" height="300">
+            
+            <p class="mb-5 text-secondary" id="modal-summary"></p>
+            
+            <div class="modal-wrapper">
+                <p class="h6 mb-4">Author: <span id="modal-author" class="modal-text bg-light text-primary p-2 ms-3"></span></p>
+                <p class="h6 mb-4">Published: <span id="modal-published" class="modal-text bg-light text-primary p-2  ms-3"></span></p>
+                <p class="h6 mb-4">Publishers: <span id="modal-publishers" class="modal-text bg-light text-primary p-2 ms-3"></span></p>
+                <p class="h6 mb-4">Categories: <span id="modal-categories" class="modal-text bg-light text-primary p-2 ms-3"></span></p>
+                <p class="h6">Pages Count: <span id="modal-page" class="modal-text bg-light text-primary p-2 ms-3"></span></p>
             </div>
+        </div>
+        <div class="offcanvas-footer bg-light">
+            <a target="_BLANK" class="btn btn-secondary" id="read-btn">read</a>
         </div>
     </div>
     
@@ -107,33 +103,31 @@
             <div class="p-2 card border-3 bg-white">
                 <img src="" id="book-img" class="p-3 bg-light rounded-3" alt="Book">
                 <div class="card-body">
-                    <p id="book-name" class="h4"></p>
+                    <p id="book-name" class="h4 text-dark"></p>
                     <p id="book-author" class="text-secondary fw-bold"></p>
                     <p id="book-year"  class="text-secondary fw-bold"></p>
                 </div>
                 <div class="row justify-content-center gap-1">
                     <button type="button" id="bookmark-btn" class="btn btn-warning col-5 fw-bold">Bookmark</button>
-                    <button type="button" id="modal-info" class="btn btn-light col-5 fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">More Info</button>
-                    <button type="button" id="read-btn" class="btn btn-secondary col-10 text-white fw-bold">Read</button>
+                    <button class="btn btn-light col-5 fw-bold text-primary" id="modal-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">More Info</button>
+                    <a target="_BLANK" id="read-btn" class="btn btn-secondary col-10 text-white fw-bold">Read</a>
                 </div>
             </div>
         </li>
     </template>
     
     <template id="bookmark-template">
-        <li class="row bg-light rounded-3 p-2">
+        <li class="row bg-light rounded-3 p-2 m-2">
             <div class="col-8">
                 <p class="h4 text-danger" id="bookmark-name"></p>
                 <span class="h6 text-secondary" id="bookmark-author"></span>
             </div>
             
-            <div class="col-4 d-flex">
-                <button id="read-btn" class="btn p-0 pe-1">
+            <div class="col-4 d-flex align-items-center">
+                <a target="_BLANK" id="read-btn" class="btn p-0 pe-1">
                     <img src="./img/book.svg" alt="book">
-                </button>
-                <button id="remove-btn" class="btn p-0">
-                    <img src="./img/remove.svg" alt="remove">
-                </button>
+                </a>
+                <button id="remove-btn" class="btn btn-danger">x</button>
             </div>
         </li>
     </template>
